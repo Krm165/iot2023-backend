@@ -24,18 +24,6 @@ app.get("/data", (req, res) => {
       console.error("Error executing the query:", err);
       res.json({ status: "Error", message: err });
       return;
-    } else if (
-      data.temp === undefined ||
-      data.temp === null ||
-      data.humi === undefined ||
-      data.humi === null
-    ) {
-      const errorMessage = {
-        status: "Error",
-        message: "Temp and Humi values are required",
-      };
-      // Add a return statement to handle the error condition
-      return res.status(400).json(errorMessage);
     }
     res.json({ status: "Success", data: results[0] });
     // console.log(results);
