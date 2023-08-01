@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 // Get the latest data from the "senser" table
 app.get("/data", (req, res) => {
   console.log("get/data");
+  const data = req.body; // Add this line to define the 'data' variable
   // if(pump === "off" && mode === "auto"){
   const sql = "SELECT * FROM senser ORDER BY id DESC LIMIT 1";
   connection.query(sql, (err, results) => {
@@ -33,6 +34,8 @@ app.get("/data", (req, res) => {
         status: "Error",
         message: "Temp and Humi values are required",
       };
+      // Add a return statement to handle the error condition
+      return res.status(400).json(errorMessage);
     }
     res.json({ status: "Success", data: results[0] });
     // console.log(results);
